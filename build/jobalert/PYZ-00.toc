@@ -107,14 +107,6 @@
    'C:\\Users\\Muhammad '
    'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageColor.py',
    'PYMODULE'),
-  ('PIL.ImageDraw',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageDraw.py',
-   'PYMODULE'),
-  ('PIL.ImageDraw2',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageDraw2.py',
-   'PYMODULE'),
   ('PIL.ImageFile',
    'C:\\Users\\Muhammad '
    'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageFile.py',
@@ -122,10 +114,6 @@
   ('PIL.ImageFilter',
    'C:\\Users\\Muhammad '
    'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageFilter.py',
-   'PYMODULE'),
-  ('PIL.ImageFont',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImageFont.py',
    'PYMODULE'),
   ('PIL.ImageMath',
    'C:\\Users\\Muhammad '
@@ -142,10 +130,6 @@
   ('PIL.ImagePalette',
    'C:\\Users\\Muhammad '
    'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImagePalette.py',
-   'PYMODULE'),
-  ('PIL.ImagePath',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\ImagePath.py',
    'PYMODULE'),
   ('PIL.ImageQt',
    'C:\\Users\\Muhammad '
@@ -1826,18 +1810,6 @@
   ('openpyxl.xml.functions',
    'C:\\Users\\Muhammad '
    'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\openpyxl\\xml\\functions.py',
-   'PYMODULE'),
-  ('packaging',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\packaging\\__init__.py',
-   'PYMODULE'),
-  ('packaging._structures',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\packaging\\_structures.py',
-   'PYMODULE'),
-  ('packaging.version',
-   'C:\\Users\\Muhammad '
-   'Umer\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\packaging\\version.py',
    'PYMODULE'),
   ('pathlib',
    'C:\\Users\\Muhammad '

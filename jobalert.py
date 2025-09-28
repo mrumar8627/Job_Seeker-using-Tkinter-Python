@@ -9,15 +9,19 @@ import webbrowser
 import threading
 import sys
 import pystray
-from PIL import Image, ImageDraw
-
-
 from PIL import Image
 
-img = Image.open("icon.png")
-img.save("icon.ico")
+# ---------------- Resource Path Helper ----------------
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and PyInstaller EXE"""
+    try:
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 # ---------------- Excel Setup ----------------
-FILE_NAME = "govt_jobs.xlsx"
+FILE_NAME = resource_path("govt_jobs.xlsx")
 
 def save_job_to_excel(title, link, source):
     """Save job details to Excel file"""
@@ -77,7 +81,6 @@ def check_new_jobs():
             soup = BeautifulSoup(response.text, "html.parser")
 
             if source == "PPSC":
-                # ✅ Special parsing for PPSC job table
                 for row in soup.find_all("tr"):
                     cols = row.find_all("td")
                     if len(cols) >= 2:
@@ -93,14 +96,13 @@ def check_new_jobs():
                                 show_popup(title, job_link)
 
             else:
-                # Generic handling for FPSC & NTS
                 for link in soup.find_all("a", href=True):
                     title = link.text.strip()
                     href = link["href"]
 
-                    # filter: only real job posts
                     if "job" in href.lower() and title != "":
-                        job_link = f"{url.rsplit('/', 1)[0]}{href}" if href.startswith("/") else href
+                        from urllib.parse import urljoin
+                        job_link = urljoin(url, href)
 
                         if title not in seen_jobs:
                             seen_jobs.add(title)
@@ -117,42 +119,34 @@ def job_loop():
         time.sleep(300)  # check every 5 min
 
 # ---------------- System Tray ----------------
-ICON_FILE = "icon.png"  # put your icon file in the same folder
+ICON_FILE = resource_path("icon.png")
 
 def on_quit(icon, item):
     icon.stop()
-    os._exit(0)
+    os._exit(0)  # hard exit so threads die
 
 def run_tray():
-    if os.path.exists(ICON_FILE):
-        image = Image.open(ICON_FILE)
-    else:
-        # fallback: simple red square if file missing
-        image = Image.new('RGB', (64, 64), color=(255, 0, 0))
+    # Try to load icon, else fallback red square
+    try:
+        if os.path.exists(ICON_FILE):
+            image = Image.open(ICON_FILE)
+        else:
+            raise FileNotFoundError
+    except Exception:
+        image = Image.new('RGB', (64, 64), color=(255, 0, 0))  # fallback red square
 
-    icon = pystray.Icon("Govt Job Alert", image, "Govt Job Alert")
-    icon.menu = pystray.Menu(
+    menu = pystray.Menu(
         pystray.MenuItem("Quit", on_quit)
     )
 
-    # start job loop in background
+    icon = pystray.Icon("Govt Job Alert", image, "Govt Job Alert", menu)
+
+    # run job loop in background
     threading.Thread(target=job_loop, daemon=True).start()
 
-    # run system tray
+    # start system tray
     icon.run()
-
-# ---------------- Test Popup ----------------
-def test_popup():
-    """Manually trigger a fake job alert for testing"""
-    title = "Test Government Job - Software Engineer"
-    link = "https://example.com/test-job"
-    save_job_to_excel(title, link, "TEST")
-    show_popup(title, link)
 
 # ---------------- Main ----------------
 if __name__ == "__main__":
-    # 🔥 Show test popup once to confirm everything works
-    test_popup()
-
-    # then start background tray
     run_tray()
